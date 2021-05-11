@@ -1,0 +1,42 @@
+﻿<Page x:Class="Tesis.Views.Pages.MenuPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Tesis.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Главное меню">
+
+    <Page.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width"  Value="300"/>
+            <Setter Property="Margin" Value="0 2"/>
+        </Style>
+    </Page.Resources>
+    
+    <Grid>
+        <StackPanel VerticalAlignment="Center">
+            <Button Content="Внести данные"
+                    />
+            <Button Content="Личный кабинет"/>
+            <Button Content="Настройки"/>
+            <Button Content="Помощь"/>
+        </StackPanel>
+
+
+        <StackPanel VerticalAlignment="Bottom">
+            <Button Width="40"
+                    BorderBrush="Transparent"
+                    x:Name="BtnVk"
+                    Click="BtnVk_Click"
+                    Height="40"
+                    Margin="0 0 0 10"
+                    Background="Transparent">
+                <Image Source="/Resources/vk.png"
+                       Stretch="Fill"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>
