@@ -28,6 +28,7 @@ namespace Tesis.Views.Pages
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+            
         }
     }
 }

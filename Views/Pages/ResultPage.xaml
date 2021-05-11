@@ -16,21 +16,47 @@
         </Grid.RowDefinitions>
 
 
+        <!--Кнопка назад-->
         <Button Style="{StaticResource BtnBack}"
                 Click="BtnBack_Click"/>
 
+        <!--Panel for search student-->
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+            <TextBox Width="250"
+                     Height="24"
+                     Margin="5 0"
+                     x:Name="Search_Txb"/>
+            <Button Width="100"
+                    Content="Поиск"/>
+        </StackPanel>
+        
+        <!--Основной вывод информации-->
         <ListView
             x:Name="ResultList"
             Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding Student.FirstName}"/>
+                        <TextBlock Text="{Binding Student.FullName}"/>
                         <TextBlock Text="{Binding Day}"/>
-                        <TextBlock/>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+
+        <!--Нижняя панель-->
+        <StackPanel Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <Button 
+                Content="Сохранить"
+                x:Name="BtnSave"
+                Width="200"
+                Height="24"
+                />
+        </StackPanel>
     </Grid>
 </Page>
