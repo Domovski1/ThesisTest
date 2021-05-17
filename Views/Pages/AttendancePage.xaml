@@ -51,5 +51,16 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+
+        <!--Сохранение изменений-->
+        <StackPanel Grid.Row="2"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <Button Width="150"
+                    Height="24"
+                    Content="Сохранить"
+                    Click="Save_Btn_Click"/>
+        </StackPanel>
     </Grid>
 </Page>

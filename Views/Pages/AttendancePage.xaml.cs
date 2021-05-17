@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Tesis.Model;
 
 namespace Tesis.Views.Pages
 {
@@ -32,12 +33,24 @@ namespace Tesis.Views.Pages
 
         private void CmbGroups_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            //GridStudents.ItemsSource = 
         }
 
         private void Attendance_Checked(object sender, RoutedEventArgs e)
         {
+            var CurrentStudent = (Student)GridStudents.SelectedItem;
+            Attendance record = new Attendance()
+            {
+                Day = DateTime.Today,
+                StudentID = CurrentStudent.ID,
+                IsPresense = true,
+            };
+            AppData.db.Attendance.Add(record);
+        }
 
+        private void Save_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            //AppData.db.SaveChanges();
         }
     }
 }
