@@ -33,7 +33,8 @@ namespace Tesis.Views.Pages
 
         private void CmbGroups_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //GridStudents.ItemsSource = 
+            var CurrentGroup = CmbGroups.SelectedItem as Group;
+            GridStudents.ItemsSource = AppData.db.Student.Where(gr => gr.GroupID == CurrentGroup.Code).ToList();
         }
 
         private void Attendance_Checked(object sender, RoutedEventArgs e)

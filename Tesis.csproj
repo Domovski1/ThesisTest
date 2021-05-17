@@ -124,6 +124,7 @@
     <Compile Include="Model\TeacherSubject.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="SomeClass.cs" />
     <Compile Include="Views\Pages\AttendancePage.xaml.cs">
       <DependentUpon>AttendancePage.xaml</DependentUpon>
     </Compile>
