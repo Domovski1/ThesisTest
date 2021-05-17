@@ -25,38 +25,19 @@ namespace Tesis.Views.Pages
             InitializeComponent();
         }
 
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        private void Back_Btn(object sender, RoutedEventArgs e)
         {
-            //AppData.db.SaveChanges();
-        }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            TxbDate.Text = DateTime.Today.ToShortDateString();
-            //CmbGroups.ItemsSource = AppData.db.Groups.ToList();
-        }
-
-        private void AttendanceChecked(object sender, RoutedEventArgs e)
-        {
-            //var CurrentStudent = GridStudents.SelectedItem as Student;
-            //Attendance attendance = new Attendance()
-            //{
-            //    Day = DateTime.Now,
-            //    IsPresense = false,
-            //    StudentID = CurrentStudent.ID
-            //};
-            //AppData.db.Attendance.Add(attendance);
+            NavigationService.GoBack();
         }
 
         private void CmbGroups_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //var CurrentGroup = CmbGroup.SelectedItem as Group;
-            //GridStudents.ItemsSource = AppData.db.Student.Where(gr => gr.GroupID == CurrentGroup.Code).ToList();
+
         }
 
-        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        private void Attendance_Checked(object sender, RoutedEventArgs e)
         {
-            NavigationService.GoBack();
+
         }
     }
 }

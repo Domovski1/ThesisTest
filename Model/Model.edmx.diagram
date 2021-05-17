@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ed5baac043724ec4bf8c510a204e0b91" Name="Diagram1" ZoomLevel="85">
+        <EntityTypeShape EntityType="ThesisBaseModel.Attendance" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ThesisBaseModel.Gender" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="ThesisBaseModel.Group" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ThesisBaseModel.Q_A" Width="1.5" PointX="5.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ThesisBaseModel.Student" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ThesisBaseModel.Subject" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ThesisBaseModel.Teacher" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ThesisBaseModel.TeacherSubject" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="ThesisBaseModel.FK_Attendance_Student" ManuallyRouted="false" />
+        <AssociationConnector Association="ThesisBaseModel.FK_Teacher_Gender" ManuallyRouted="false" />
+        <AssociationConnector Association="ThesisBaseModel.FK_Group_Teacher" ManuallyRouted="false" />
+        <AssociationConnector Association="ThesisBaseModel.FK_Student_Group" ManuallyRouted="false" />
+        <AssociationConnector Association="ThesisBaseModel.FK_TeacherSubject_Subject" ManuallyRouted="false" />
+        <AssociationConnector Association="ThesisBaseModel.FK_TeacherSubject_Teacher" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
