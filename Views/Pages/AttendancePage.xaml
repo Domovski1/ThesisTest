@@ -7,6 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" 
       d:DesignWidth="800"
+      Loaded="Page_Loaded"
       Title="Ввести данные">
 
     <Grid>
@@ -38,8 +39,8 @@
                   CanUserAddRows="False"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Фамилия" Binding="{Binding }"/>
-                <DataGridTextColumn Width="*" Header="Имя"/>
+                <DataGridTextColumn Width="*" Header="Фамилия" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Width="*" Header="Имя" Binding="{Binding LastName}"/>
                 <DataGridTemplateColumn Width="100" Header="Пропуск">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

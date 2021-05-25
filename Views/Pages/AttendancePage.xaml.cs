@@ -24,6 +24,7 @@ namespace Tesis.Views.Pages
         public AttendancePage()
         {
             InitializeComponent();
+            GridStudents.ItemsSource = AppData.db.Student.ToList();
         }
 
         private void Back_Btn(object sender, RoutedEventArgs e)
@@ -52,6 +53,12 @@ namespace Tesis.Views.Pages
         private void Save_Btn_Click(object sender, RoutedEventArgs e)
         {
             //AppData.db.SaveChanges();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            CmbGroups.ItemsSource = AppData.db.Group.ToList();
+            CmbGroups.DisplayMemberPath = "Title";
         }
     }
 }
