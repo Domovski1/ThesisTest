@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using Tesis.Views.Pages.SettingPages;
 
 namespace Tesis.Views.Pages
 {
@@ -13,7 +14,7 @@ namespace Tesis.Views.Pages
     {
         public MenuPage()
         {
-            InitializeComponent();
+            InitializeComponent();  
         }
 
         private void BtnVk_Click(object sender, RoutedEventArgs e)
@@ -24,6 +25,11 @@ namespace Tesis.Views.Pages
         private void Attandance_Btn(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new AttendancePage());
+        }
+
+        private void Setting_Btn(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new SettingPage());
         }
     }
 }

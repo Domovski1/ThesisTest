@@ -21,7 +21,8 @@
             <Button Content="Внести данные"
                     Click="Attandance_Btn"/>
             <Button Content="Личный кабинет"/>
-            <Button Content="Настройки"/>
+            <Button Content="Настройки"
+                    Click="Setting_Btn"/>
             <Button Content="Помощь"/>
         </StackPanel>
 
