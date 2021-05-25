@@ -1,0 +1,39 @@
+﻿<Page x:Class="Tesis.Views.Pages.SettingPages.SettingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Tesis.Views.Pages.SettingPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Настройки"
+      Loaded="Page_Loaded">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*" MinHeight="45"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+        <Button Style="{StaticResource BtnBack}"
+                Click="Back_btn_Click"/>
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Margin="30 0 0 0">
+            <TextBlock Text="Путь для сохранения документов:"
+                       Width="250"
+                        FontSize="16"/>
+            <TextBox Width="250"
+                     FontSize="16"
+                     Name="Path_Txb"
+                     Margin="10 0 0 0"/>
+        </StackPanel>
+
+        <Button Grid.Row="2"
+                Height="24"
+                Width="200"
+                Content="Сохранить"/>
+    </Grid>
+</Page>
