@@ -25,7 +25,7 @@ namespace Tesis.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\62427\\Desktop\\")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\62427\\Desktop\\Отчёт.pdf")]
         public string PathToDocs {
             get {
                 return ((string)(this["PathToDocs"]));
