@@ -1,0 +1,60 @@
+﻿<Page x:Class="Tesis.Views.Pages.PrintPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Tesis.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" 
+      Loaded="Page_Loaded"
+      d:DesignWidth="800"
+      Title="Отчёт">
+
+    <Grid>
+        <!---->
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="45" Height="0.1*"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+
+
+        <Button Style="{StaticResource BtnBack}"
+                Click="Back_btn"/>
+
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            
+            <!--Группа-->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Width="150"
+                           Text="Группа:"/>
+                <ComboBox x:Name="CmbGroup"
+                          Width="150"/>
+            </StackPanel>
+            
+            <!--Месяц-->
+            <StackPanel Orientation="Horizontal"
+                        Margin="0 10">
+                <TextBlock Width="150"
+                           Text="От:"/>
+                <DatePicker Name="to_dp"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Width="150"
+                           Text="До:"/>
+                <DatePicker Name="Until_dp"/>
+            </StackPanel>
+        </StackPanel>
+
+
+        <Button x:Name="Save_Btn"
+                Grid.Row="2"
+                Height="24"
+                Width="150"
+                Click="Save_Btn_Click"
+                Content="Сохранить"/>
+    </Grid>
+</Page>
