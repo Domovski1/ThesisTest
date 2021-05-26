@@ -35,5 +35,12 @@ namespace Tesis.Views.Pages.SettingPages
         {
             Path_Txb.Text = Settings.Default.PathToDocs;
         }
+
+        private void Save_Btn(object sender, RoutedEventArgs e)
+        {
+            Settings.Default.PathToDocs = Path_Txb.Text;
+            Settings.Default.Save();
+            MessageBox.Show("Настройки сохранены", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 }

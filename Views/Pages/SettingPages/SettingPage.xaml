@@ -34,6 +34,7 @@
         <Button Grid.Row="2"
                 Height="24"
                 Width="200"
+                Click="Save_Btn"
                 Content="Сохранить"/>
     </Grid>
 </Page>
