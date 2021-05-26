@@ -31,5 +31,10 @@ namespace Tesis.Views.Pages
         {
             NavigationService.Navigate(new SettingPage());
         }
+
+        private void Account_Btn(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new PrintPage());
+        }
     }
 }

@@ -18,8 +18,10 @@
     
     <Grid>
         <StackPanel VerticalAlignment="Center">
-            <Button Content="Внести данные"
+            <Button Content="Данные"
                     Click="Attandance_Btn"/>
+            <Button Content="Сформировать отчёт"
+                    Click="Account_Btn"/>
             <Button Content="Личный кабинет"/>
             <Button Content="Настройки"
                     Click="Setting_Btn"/>
