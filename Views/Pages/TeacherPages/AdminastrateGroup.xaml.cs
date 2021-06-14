@@ -28,5 +28,11 @@ namespace Tesis.Views.Pages.TeacherPages
             var CurrentGroup = CmbGroups.SelectedItem as Group;
             GridStudents.ItemsSource = AppData.db.Student.Where(gr => gr.GroupID == CurrentGroup.Code).ToList();
         }
+
+        private void BtnCheck_Click(object sender, RoutedEventArgs e)
+        {
+
+            NavigationService.Navigate(new RemarksPage((Student)GridStudents.SelectedItem));
+        }
     }
 }
