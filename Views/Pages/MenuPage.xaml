@@ -9,7 +9,7 @@
       Title="Главное меню">
 
     <Page.Resources>
-        <Style TargetType="Button">
+        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatDarkBgButton}">
             <Setter Property="Height" Value="30"/>
             <Setter Property="Width"  Value="300"/>
             <Setter Property="Margin" Value="0 2"/>
@@ -22,7 +22,8 @@
                     Click="Attandance_Btn"/>
             <Button Content="Сформировать отчёт"
                     Click="Account_Btn"/>
-            <Button Content="Личный кабинет"/>
+            <Button Content="Курирование"
+                    Click="BtnMyGroup_Click"/>
             <Button Content="Настройки"
                     Click="Setting_Btn"/>
             <Button Content="Помощь"/>

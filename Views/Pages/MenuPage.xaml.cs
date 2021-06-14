@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using Tesis.Views.Pages.SettingPages;
+using Tesis.Views.Pages.TeacherPages;
 
 namespace Tesis.Views.Pages
 {
@@ -35,6 +36,11 @@ namespace Tesis.Views.Pages
         private void Account_Btn(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new PrintPage());
+        }
+
+        private void BtnMyGroup_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AdminastrateGroup());
         }
     }
 }
