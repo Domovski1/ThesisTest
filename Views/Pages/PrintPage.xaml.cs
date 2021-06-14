@@ -30,10 +30,11 @@ namespace Tesis.Views.Pages
             NavigationService.GoBack();
         }
 
+        // Генерация отчёта в pdf
         private void Save_Btn_Click(object sender, RoutedEventArgs e)
         {
-            var CurretGroup = CmbGroup.SelectedItem as Group;
 
+            var CurretGroup = CmbGroup.SelectedItem as Group;
 
             var word = new Word.Application();
             try
@@ -50,8 +51,6 @@ namespace Tesis.Views.Pages
                     table.Cell(i, 2).Range.Text = item.LastName;
                     table.Cell(i, 3).Range.Text = item.Group.Title;
                     table.Cell(i, 4).Range.Text = (AppData.db.Attendance.Where(x => x.StudentID == item.ID).Count() * 2).ToString();
-                    //table.Cell(i, 4).Range.Text = (AppData.db.Attendance.Where(x => x.Student.GroupID == CurretGroup.Code && x.IsPresense == false).Count() * 2).ToString();
-                    //table.Cell(i, 4).Range.Text = (AppData.db.Student.Where(x => x.GroupID == CurretGroup.Code).Count() * 2).ToString();
                     i++;
                 }
                 
