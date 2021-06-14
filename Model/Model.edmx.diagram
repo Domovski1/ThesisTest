@@ -23,6 +23,9 @@
         <AssociationConnector Association="ThesisBaseModel.FK_User_Teacher" />
         <EntityTypeShape EntityType="ThesisBaseModel.Role" Width="1.5" PointX="7.375" PointY="0.875" />
         <AssociationConnector Association="ThesisBaseModel.FK_User_Role" />
+        <EntityTypeShape EntityType="ThesisBaseModel.Remark" Width="1.5" PointX="9.75" PointY="6.875" />
+        <AssociationConnector Association="ThesisBaseModel.FK_Remark_Student" />
+        <AssociationConnector Association="ThesisBaseModel.FK_Remark_Teacher" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

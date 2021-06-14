@@ -18,6 +18,7 @@ namespace Tesis.Model
         public Student()
         {
             this.Attendance = new HashSet<Attendance>();
+            this.Remark = new HashSet<Remark>();
         }
     
         public int ID { get; set; }
@@ -28,5 +29,7 @@ namespace Tesis.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Attendance> Attendance { get; set; }
         public virtual Group Group { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Remark> Remark { get; set; }
     }
 }

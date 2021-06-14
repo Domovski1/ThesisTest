@@ -35,5 +35,6 @@ namespace Tesis.Model
         public virtual DbSet<TeacherSubject> TeacherSubject { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Role> Role { get; set; }
+        public virtual DbSet<Remark> Remark { get; set; }
     }
 }

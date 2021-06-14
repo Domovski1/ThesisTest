@@ -36,6 +36,16 @@
           <Property Name="Question" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Answer" Type="nvarchar" MaxLength="350" />
         </EntityType>
+        <EntityType Name="Remark">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="350" Nullable="false" />
+          <Property Name="TeacherID" Type="int" Nullable="false" />
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="ID" />
@@ -111,6 +121,30 @@
             </Principal>
             <Dependent Role="Group">
               <PropertyRef Name="CuratorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Remark_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="Remark" Type="Self.Remark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Remark">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Remark_Teacher">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+          <End Role="Remark" Type="Self.Remark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Remark">
+              <PropertyRef Name="TeacherID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -191,6 +225,7 @@
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Q&amp;A" EntityType="Self.Q&amp;A" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Remark" EntityType="Self.Remark" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
@@ -204,6 +239,14 @@
           <AssociationSet Name="FK_Group_Teacher" Association="Self.FK_Group_Teacher">
             <End Role="Teacher" EntitySet="Teacher" />
             <End Role="Group" EntitySet="Group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Remark_Student" Association="Self.FK_Remark_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Remark" EntitySet="Remark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Remark_Teacher" Association="Self.FK_Remark_Teacher">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="Remark" EntitySet="Remark" />
           </AssociationSet>
           <AssociationSet Name="FK_Student_Group" Association="Self.FK_Student_Group">
             <End Role="Group" EntitySet="Group" />
@@ -279,6 +322,7 @@
           <Property Name="GroupID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Attendance" Relationship="Self.FK_Attendance_Student" FromRole="Student" ToRole="Attendance" />
           <NavigationProperty Name="Group" Relationship="Self.FK_Student_Group" FromRole="Student" ToRole="Group" />
+          <NavigationProperty Name="Remark" Relationship="ThesisBaseModel.FK_Remark_Student" FromRole="Student" ToRole="Remark" />
         </EntityType>
         <EntityType Name="Subject">
           <Key>
@@ -304,6 +348,7 @@
           <NavigationProperty Name="TeacherSubject" Relationship="Self.FK_TeacherSubject_Teacher" FromRole="Teacher" ToRole="TeacherSubject" />
           <NavigationProperty Name="User" Relationship="ThesisBaseModel.FK_User_Teacher" FromRole="Teacher" ToRole="User" />
           <Property Name="Photo" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Remark" Relationship="ThesisBaseModel.FK_Remark_Teacher" FromRole="Teacher" ToRole="Remark" />
         </EntityType>
         <EntityType Name="TeacherSubject">
           <Key>
@@ -430,6 +475,15 @@
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <EntitySet Name="Remark" EntityType="ThesisBaseModel.Remark" />
+          <AssociationSet Name="FK_Remark_Student" Association="ThesisBaseModel.FK_Remark_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="Remark" EntitySet="Remark" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Remark_Teacher" Association="ThesisBaseModel.FK_Remark_Teacher">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="Remark" EntitySet="Remark" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -472,6 +526,42 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Remark">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="TeacherID" Type="Int32" Nullable="false" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Student" Relationship="ThesisBaseModel.FK_Remark_Student" FromRole="Remark" ToRole="Student" />
+          <NavigationProperty Name="Teacher" Relationship="ThesisBaseModel.FK_Remark_Teacher" FromRole="Remark" ToRole="Teacher" />
+        </EntityType>
+        <Association Name="FK_Remark_Student">
+          <End Type="ThesisBaseModel.Student" Role="Student" Multiplicity="1" />
+          <End Type="ThesisBaseModel.Remark" Role="Remark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Remark">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Remark_Teacher">
+          <End Type="ThesisBaseModel.Teacher" Role="Teacher" Multiplicity="1" />
+          <End Type="ThesisBaseModel.Remark" Role="Remark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Remark">
+              <PropertyRef Name="TeacherID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -572,6 +662,17 @@
             <EntityTypeMapping TypeName="ThesisBaseModel.Role">
               <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Remark">
+            <EntityTypeMapping TypeName="ThesisBaseModel.Remark">
+              <MappingFragment StoreEntitySet="Remark">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
