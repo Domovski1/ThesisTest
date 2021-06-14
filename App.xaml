@@ -12,8 +12,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
         <!--Кнопка назад-->
-        <Style x:Key="BtnBack" TargetType="Button">
-            <Setter Property="Height" Value="22"/>
+        <Style x:Key="BtnBack" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatDarkBgButton}">
+            <Setter Property="Height" Value="26"/>
             <Setter Property="Width" Value="100"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>

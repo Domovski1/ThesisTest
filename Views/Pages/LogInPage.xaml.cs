@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Tesis.Model;
+using Tesis.Views.Pages.AdminPages;
 
 namespace Tesis.Views.Pages
 {
@@ -46,7 +47,12 @@ namespace Tesis.Views.Pages
             var CurrentUser = AppData.db.User.FirstOrDefault(u => u.Login == TxbLogin.Text && u.Password == Pbox.Password);
             if (CurrentUser != null)
             {
-                NavigationService.Navigate(new MenuPage());
+                if (CurrentUser.RoleID == 1)
+                {
+                    NavigationService.Navigate(new AdminMainPage());
+                } else
+                    NavigationService.Navigate(new MenuPage());
+
             } else
             {
                 MessageBox.Show("Такого юзера не существует");
