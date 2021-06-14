@@ -21,6 +21,8 @@
         <AssociationConnector Association="ThesisBaseModel.FK_TeacherSubject_Teacher" ManuallyRouted="false" />
         <EntityTypeShape EntityType="ThesisBaseModel.User" Width="1.5" PointX="5.25" PointY="9.875" />
         <AssociationConnector Association="ThesisBaseModel.FK_User_Teacher" />
+        <EntityTypeShape EntityType="ThesisBaseModel.Role" Width="1.5" PointX="7.375" PointY="0.875" />
+        <AssociationConnector Association="ThesisBaseModel.FK_User_Role" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

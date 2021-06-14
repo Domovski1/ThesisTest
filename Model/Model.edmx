@@ -36,6 +36,13 @@
           <Property Name="Question" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="Answer" Type="nvarchar" MaxLength="350" />
         </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
         <EntityType Name="Student">
           <Key>
             <PropertyRef Name="ID" />
@@ -63,6 +70,7 @@
           <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
           <Property Name="GenderCode" Type="nchar" MaxLength="1" Nullable="false" />
           <Property Name="DateOfBirth" Type="date" />
+          <Property Name="Photo" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="TeacherSubject">
           <Key>
@@ -80,6 +88,7 @@
           <Property Name="Login" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" />
         </EntityType>
         <Association Name="FK_Attendance_Student">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
@@ -153,6 +162,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Teacher">
           <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -170,6 +191,7 @@
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Q&amp;A" EntityType="Self.Q&amp;A" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
@@ -198,6 +220,10 @@
           <AssociationSet Name="FK_TeacherSubject_Teacher" Association="Self.FK_TeacherSubject_Teacher">
             <End Role="Teacher" EntitySet="Teacher" />
             <End Role="TeacherSubject" EntitySet="TeacherSubject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
           </AssociationSet>
           <AssociationSet Name="FK_User_Teacher" Association="Self.FK_User_Teacher">
             <End Role="Teacher" EntitySet="Teacher" />
@@ -277,6 +303,7 @@
           <NavigationProperty Name="Group" Relationship="Self.FK_Group_Teacher" FromRole="Teacher" ToRole="Group" />
           <NavigationProperty Name="TeacherSubject" Relationship="Self.FK_TeacherSubject_Teacher" FromRole="Teacher" ToRole="TeacherSubject" />
           <NavigationProperty Name="User" Relationship="ThesisBaseModel.FK_User_Teacher" FromRole="Teacher" ToRole="User" />
+          <Property Name="Photo" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TeacherSubject">
           <Key>
@@ -398,6 +425,11 @@
             <End Role="Teacher" EntitySet="Teacher" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <EntitySet Name="Role" EntityType="ThesisBaseModel.Role" />
+          <AssociationSet Name="FK_User_Role" Association="ThesisBaseModel.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -408,6 +440,8 @@
           <Property Name="Password" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Teacher" Relationship="ThesisBaseModel.FK_User_Teacher" FromRole="User" ToRole="Teacher" />
+          <Property Name="RoleID" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="ThesisBaseModel.FK_User_Role" FromRole="User" ToRole="Role" />
         </EntityType>
         <Association Name="FK_User_Teacher">
           <End Type="ThesisBaseModel.Teacher" Role="Teacher" Multiplicity="1" />
@@ -418,6 +452,26 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="ThesisBaseModel.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_User_Role">
+          <End Type="ThesisBaseModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="ThesisBaseModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -484,6 +538,7 @@
           <EntitySetMapping Name="Teacher">
             <EntityTypeMapping TypeName="ThesisBaseModel.Teacher">
               <MappingFragment StoreEntitySet="Teacher">
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -505,9 +560,18 @@
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="ThesisBaseModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="ThesisBaseModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

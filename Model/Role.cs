@@ -12,15 +12,18 @@ namespace Tesis.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Role
     {
-        public int ID { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public int UserID { get; set; }
-        public Nullable<int> RoleID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Role()
+        {
+            this.User = new HashSet<User>();
+        }
     
-        public virtual Teacher Teacher { get; set; }
-        public virtual Role Role { get; set; }
+        public int ID { get; set; }
+        public string Title { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> User { get; set; }
     }
 }
