@@ -24,7 +24,8 @@ namespace Tesis
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new MenuPage());
+            //MainFrame.Navigate(new MenuPage());
+            MainFrame.Navigate(new LogInPage());
         }
     }
 }
