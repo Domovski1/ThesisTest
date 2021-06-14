@@ -19,6 +19,7 @@ namespace Tesis.Model
         {
             this.Group = new HashSet<Group>();
             this.TeacherSubject = new HashSet<TeacherSubject>();
+            this.User = new HashSet<User>();
         }
     
         public int ID { get; set; }
@@ -33,5 +34,7 @@ namespace Tesis.Model
         public virtual ICollection<Group> Group { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TeacherSubject> TeacherSubject { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> User { get; set; }
     }
 }
