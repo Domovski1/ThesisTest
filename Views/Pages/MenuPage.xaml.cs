@@ -18,11 +18,6 @@ namespace Tesis.Views.Pages
             InitializeComponent();  
         }
 
-        private void BtnVk_Click(object sender, RoutedEventArgs e)
-        {
-            Process.Start(@"https://vk.com/gabiyn");
-        }
-
         private void Attandance_Btn(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new AttendancePage());
@@ -41,6 +36,11 @@ namespace Tesis.Views.Pages
         private void BtnMyGroup_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new AdminastrateGroup());
+        }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

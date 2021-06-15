@@ -24,7 +24,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <Label Content="{Binding Teacher.LastName}" ContentStringFormat="Куратор: {0}"/>
+                        <Label Content="{Binding Teacher.LastName}" ContentStringFormat="Преподаватель: {0}"/>
                         <Label Content="{Binding Message}"/>
                         <Label Content="{Binding Student.LastName}" ContentStringFormat="Студент: {0}"/>
                         <StackPanel Orientation="Horizontal">

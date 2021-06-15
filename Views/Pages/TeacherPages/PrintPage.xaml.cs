@@ -6,6 +6,7 @@ using System.Windows.Navigation;
 using Word = Microsoft.Office.Interop.Word;
 using Tesis.Model;
 using Tesis.Properties;
+using System.Diagnostics;
 
 namespace Tesis.Views.Pages.TeacherPages
 {
@@ -51,6 +52,7 @@ namespace Tesis.Views.Pages.TeacherPages
                     table.Cell(i, 2).Range.Text = item.LastName;
                     table.Cell(i, 3).Range.Text = item.Group.Title;
                     table.Cell(i, 4).Range.Text = (AppData.db.Attendance.Where(x => x.StudentID == item.ID).Count() * 2).ToString();
+
                     i++;
                 }
                 
@@ -58,6 +60,7 @@ namespace Tesis.Views.Pages.TeacherPages
                 document.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
                 word.Quit(Word.WdSaveOptions.wdDoNotSaveChanges);
                 MessageBox.Show("Файл сохранен", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                Process.Start(@"C:\Users\62427\Desktop\Отчёт.pdf");
             }
             catch (Exception ex)
             {

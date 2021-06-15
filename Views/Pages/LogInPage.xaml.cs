@@ -22,6 +22,7 @@ namespace Tesis.Views.Pages
     /// </summary>
     public partial class LogInPage : Page
     {
+        int Count = 0;
         public LogInPage()
         {
             InitializeComponent();
@@ -55,8 +56,15 @@ namespace Tesis.Views.Pages
 
             } else
             {
-                MessageBox.Show("Такого юзера не существует");
+                MessageBox.Show("Такого юзера не существует", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+            Count++;
+            if (Count >= 5)
+            {
+                MessageBox.Show("Количество попыток для входа превышено. Пожалуйста, попробуйте через 5 минут либо обратитесь к администратору", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.IsEnabled = false;
+            } 
         }
     }
 }

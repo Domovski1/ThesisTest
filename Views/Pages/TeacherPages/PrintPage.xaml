@@ -39,13 +39,15 @@
                         Margin="0 10">
                 <TextBlock Width="150"
                            Text="От:"/>
-                <DatePicker Name="to_dp"/>
+                <DatePicker Name="to_dp"
+                            Width="150"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
                 <TextBlock Width="150"
                            Text="До:"/>
-                <DatePicker Name="Until_dp"/>
+                <DatePicker Name="Until_dp"
+                            Width="150"/>
             </StackPanel>
         </StackPanel>
 

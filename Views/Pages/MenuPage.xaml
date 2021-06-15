@@ -17,6 +17,12 @@
     </Page.Resources>
     
     <Grid>
+
+        <Button Style="{StaticResource BtnBack}"
+                HorizontalAlignment="Right"
+                Content="Выйти"
+                Click="BtnBack_Click"/>
+
         <StackPanel VerticalAlignment="Center">
             <Button Content="Данные"
                     Click="Attandance_Btn"/>
@@ -30,17 +36,6 @@
         </StackPanel>
 
 
-        <StackPanel VerticalAlignment="Bottom">
-            <Button Width="40"
-                    BorderBrush="Transparent"
-                    x:Name="BtnVk"
-                    Click="BtnVk_Click"
-                    Height="40"
-                    Margin="0 0 0 10"
-                    Background="Transparent">
-                <Image Source="/Resources/vk.png"
-                       Stretch="Fill"/>
-            </Button>
-        </StackPanel>
+        
     </Grid>
 </Page>

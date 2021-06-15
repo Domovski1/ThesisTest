@@ -76,6 +76,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\AdminPages\TeacherOperatePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\TeacherPages\AttendancePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -147,7 +151,6 @@
     <Compile Include="Model\Remark.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\RemarkPartial.cs" />
     <Compile Include="Model\Role.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -170,6 +173,9 @@
     <Compile Include="SomeClass.cs" />
     <Compile Include="Views\Pages\AdminPages\AdminMainPage.xaml.cs">
       <DependentUpon>AdminMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\AdminPages\TeacherOperatePage.xaml.cs">
+      <DependentUpon>TeacherOperatePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\TeacherPages\AttendancePage.xaml.cs">
       <DependentUpon>AttendancePage.xaml</DependentUpon>
