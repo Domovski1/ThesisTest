@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Замечения">
 
-    <Grid>
+    <Grid> 
         <Grid.RowDefinitions>
             <RowDefinition Height="0.1*" MinHeight="50"/>
             <RowDefinition Height="0.8*" />
@@ -29,11 +29,20 @@
                         <Label Content="{Binding Student.LastName}" ContentStringFormat="Студент: {0}"/>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Прочитано: "/>
-                            <CheckBox IsChecked="{Binding Status}"/>
+                            <CheckBox IsChecked="{Binding Status}"
+                                      Checked="Status_Checked"/>
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+
+        <StackPanel Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <Button Width="200"
+                    Content="Сохранить"/>
+        </StackPanel>
     </Grid>
 </Page>
