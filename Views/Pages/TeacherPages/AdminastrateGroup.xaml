@@ -31,16 +31,6 @@
                       SelectionChanged="CmbGroups_SelectionChanged"/>
         </StackPanel>
 
-        <!--<DataGrid Grid.Row="1"
-                  Name="GridStudents"
-                  CanUserAddRows="False"
-                  AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Width="*" Header="Фамилия" Binding="{Binding FirstName}"/>
-                <DataGridTextColumn Width="*" Header="Имя" Binding="{Binding LastName}"/>
-            </DataGrid.Columns>
-        </DataGrid>-->
-
         <ListView x:Name="GridStudents"
                   Grid.Row="1">
             <ListView.ItemTemplate>
@@ -50,17 +40,17 @@
                         <TextBlock Text="{Binding LastName}"/>
                     </StackPanel>
                 </DataTemplate>
-            </ListView.ItemTemplate>
+            </ListView.ItemTemplate>    
         </ListView>
 
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
-            <Button Width="200"/>
+
             <Button Width="200"
+                    Content="Перейти"
                     Click="BtnCheck_Click"
                     Margin="10 0"/>
-            <Button Width="200"/>
         </StackPanel>
     </Grid>
 </Page>

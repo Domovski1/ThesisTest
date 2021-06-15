@@ -24,6 +24,7 @@
 
         <StackPanel Orientation="Horizontal"
                     VerticalAlignment="Center"
+                    Margin="15 0"
                     HorizontalAlignment="Right">
             <TextBlock Text="Группы:"
                        Width="100"

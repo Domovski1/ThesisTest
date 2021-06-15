@@ -31,8 +31,15 @@ namespace Tesis.Views.Pages.TeacherPages
 
         private void BtnCheck_Click(object sender, RoutedEventArgs e)
         {
-
-            NavigationService.Navigate(new RemarksPage((Student)GridStudents.SelectedItem));
+            var CurrentStudent = (Student)GridStudents.SelectedItem;
+            var IsRemarkExist = AppData.db.Remark.Where(x => x.StudentID == CurrentStudent.ID).ToList();
+            if (IsRemarkExist.Count != 0)
+            {
+                NavigationService.Navigate(new RemarksPage(CurrentStudent));
+            } else
+            {
+                MessageBox.Show("У данног студента нет никаких замечений", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }
