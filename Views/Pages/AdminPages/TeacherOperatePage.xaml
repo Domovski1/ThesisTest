@@ -72,5 +72,12 @@
             </StackPanel>
             
         </StackPanel>
+
+
+        <StackPanel Grid.Row="2"
+                    VerticalAlignment="Center">
+            <Button Width="200"
+                    Content="Сохранить"/>
+        </StackPanel>
     </Grid>
 </Page>
