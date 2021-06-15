@@ -7,7 +7,7 @@ using Word = Microsoft.Office.Interop.Word;
 using Tesis.Model;
 using Tesis.Properties;
 
-namespace Tesis.Views.Pages
+namespace Tesis.Views.Pages.TeacherPages
 {
     /// <summary>
     /// Логика взаимодействия для PrintPage.xaml

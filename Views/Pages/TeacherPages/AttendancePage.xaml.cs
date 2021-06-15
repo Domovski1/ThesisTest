@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Tesis.Model;
 
-namespace Tesis.Views.Pages
+namespace Tesis.Views.Pages.TeacherPages
 {
     /// <summary>
     /// Логика взаимодействия для AttendancePage.xaml

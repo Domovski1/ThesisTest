@@ -76,7 +76,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\AttendancePage.xaml">
+    <Page Include="Views\Pages\TeacherPages\AttendancePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -88,11 +88,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\PrintPage.xaml">
+    <Page Include="Views\Pages\TeacherPages\PrintPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\ResultPage.xaml">
+    <Page Include="Views\Pages\TeacherPages\ResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,7 +171,7 @@
     <Compile Include="Views\Pages\AdminPages\AdminMainPage.xaml.cs">
       <DependentUpon>AdminMainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\AttendancePage.xaml.cs">
+    <Compile Include="Views\Pages\TeacherPages\AttendancePage.xaml.cs">
       <DependentUpon>AttendancePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\LogInPage.xaml.cs">
@@ -180,10 +180,10 @@
     <Compile Include="Views\Pages\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\PrintPage.xaml.cs">
+    <Compile Include="Views\Pages\TeacherPages\PrintPage.xaml.cs">
       <DependentUpon>PrintPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Pages\ResultPage.xaml.cs">
+    <Compile Include="Views\Pages\TeacherPages\ResultPage.xaml.cs">
       <DependentUpon>ResultPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\SettingPages\SettingPage.xaml.cs">
