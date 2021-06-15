@@ -1,0 +1,76 @@
+﻿<Page x:Class="Tesis.Views.Pages.AdminPages.TeacherOperatePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Tesis.Views.Pages.AdminPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Страница преподавателя">
+
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*" MinHeight="50"/>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="0.1*" MinHeight="50"/>
+        </Grid.RowDefinitions>
+
+        <Button Style="{StaticResource BtnBack}"
+                Click="Button_Click"/>
+
+        <StackPanel Grid.Row="1" 
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+            <StackPanel HorizontalAlignment="Left"
+                        Margin="30 30 30 0">
+                
+                <Image Height="150"
+                       Width="150"
+                       Source="{Binding teacher.Photo}"/>
+                <Button Width="150"
+                        Height="28"
+                        Margin="0 5"
+                        Content="Выбрать"/>
+            </StackPanel>
+
+            <StackPanel Margin="0 30 0 0">
+                <TextBlock Text="Фамилия:"/>
+                <TextBlock Text="Имя:"/>
+                <TextBlock Text="Отчество:"/>
+                <TextBlock Text="Пол:"/>
+                <TextBlock Text="Дата рождения:"/>
+
+            </StackPanel>
+
+            <StackPanel Margin="0 30 0 0">
+                <TextBox Text="{Binding teacher.FirstName}"
+                         Width="200"
+                         Height="30"/>
+                <TextBox Text="{Binding teacher.LastName}"
+                         Width="200"
+                         Height="30"/>
+                <TextBox Text="{Binding teacher.Patronymic}"
+                         Width="200"
+                         Height="30"/>
+                <ComboBox ItemsSource="{Binding genders}"
+                          DisplayMemberPath="Title"
+                          SelectedItem="{Binding teacher.Gender}"
+                          Width="200"
+                          Height="30"/>
+                <DatePicker Width="200"
+                            SelectedDate="{Binding teacher.DateOfBirth}"
+                            Height="30"/>
+            </StackPanel>
+            
+        </StackPanel>
+    </Grid>
+</Page>

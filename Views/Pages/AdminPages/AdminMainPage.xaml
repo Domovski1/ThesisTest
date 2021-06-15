@@ -44,9 +44,11 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
             <Button Width="200" 
+                    Click="Update_Click"
                     Content="Редактировать"
                     />
             <Button Width="200"
+                    Click="BtnRemove_Click"
                     Content="Удалить"
                     Margin="10 0"/>
             <Button Width="200"

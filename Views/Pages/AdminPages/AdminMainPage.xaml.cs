@@ -31,5 +31,37 @@ namespace Tesis.Views.Pages.AdminPages
         {
             NavigationService.GoBack();
         }
+
+        private void BtnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var CurrentTeacher = (Teacher)ListTeachers.SelectedItem;
+                if (MessageBox.Show("Вы уверены, что хотите удалить запись?", "Данные невозможно будет восстановить", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    AppData.db.Teacher.Remove(CurrentTeacher);
+                    AppData.db.SaveChanges();
+                    MessageBox.Show($"Преподаватель {CurrentTeacher.LastName} удалён из базы", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    ListTeachers.ItemsSource = AppData.db.Teacher.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+        }
+
+        private void Update_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                NavigationService.Navigate(new TeacherOperatePage((Teacher)ListTeachers.SelectedItem));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }
