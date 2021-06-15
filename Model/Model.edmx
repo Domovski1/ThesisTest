@@ -19,6 +19,7 @@
             <PropertyRef Name="Code" />
           </Key>
           <Property Name="Code" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Group">
           <Key>
@@ -293,6 +294,7 @@
           </Key>
           <Property Name="Code" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Teacher" Relationship="Self.FK_Teacher_Gender" FromRole="Gender" ToRole="Teacher" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Group">
           <Key>
@@ -584,6 +586,7 @@
           <EntitySetMapping Name="Gender">
             <EntityTypeMapping TypeName="ThesisBaseModel.Gender">
               <MappingFragment StoreEntitySet="Gender">
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
