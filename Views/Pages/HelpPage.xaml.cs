@@ -32,5 +32,10 @@ namespace Tesis.Views.Pages
                 GridQuestions.ItemsSource = AppData.db.Q_A.Where(q => q.Question.Contains(TxbSearch.Text)).ToList();
             }
         }
+
+        private void BtnNewQuestion_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new NewQuestPage());
+        }
     }
 }

@@ -39,6 +39,7 @@
         <StackPanel Grid.Row="2"
                     VerticalAlignment="Center">
             <Button Width="200"
+                    Click="BtnNewQuestion_Click"
                     Content="Задать свой вопрос"/>
         </StackPanel>
     </Grid>
