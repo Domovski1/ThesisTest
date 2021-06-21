@@ -45,5 +45,10 @@ namespace Tesis.Views.Pages
         {
             NavigationService.Navigate(new DocumentsPage());
         }
+
+        private void BtnHelp_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new HelpPage());
+        }
     }
 }

@@ -34,7 +34,8 @@
                     Click="BtnDocs_Click"/>
             <Button Content="Настройки"
                     Click="Setting_Btn"/>
-            <Button Content="Помощь"/>
+            <Button Content="Помощь"
+                    Click="BtnHelp_Click"/>
         </StackPanel>
    
     </Grid>
