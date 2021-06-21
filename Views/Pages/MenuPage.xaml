@@ -30,12 +30,12 @@
                     Click="Account_Btn"/>
             <Button Content="Курирование"
                     Click="BtnMyGroup_Click"/>
+            <Button Content="Скачать документы"
+                    Click="BtnDocs_Click"/>
             <Button Content="Настройки"
                     Click="Setting_Btn"/>
             <Button Content="Помощь"/>
         </StackPanel>
-
-
-        
+   
     </Grid>
 </Page>

@@ -12,15 +12,13 @@ namespace Tesis.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class TeacherDocument
     {
         public int ID { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public int UserID { get; set; }
-        public Nullable<int> RoleID { get; set; }
+        public int TeacherID { get; set; }
+        public int DocumentID { get; set; }
     
-        public virtual Role Role { get; set; }
+        public virtual Document Document { get; set; }
         public virtual Teacher Teacher { get; set; }
     }
 }

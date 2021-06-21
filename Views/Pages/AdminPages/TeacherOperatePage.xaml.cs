@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,8 +17,10 @@ namespace Tesis.Views.Pages.AdminPages
         public TeacherOperatePage(Teacher GetTeacher)
         {
             InitializeComponent();
+            
             teacher = GetTeacher;
             genders = AppData.db.Gender.ToList();
+            
             this.DataContext = this;
         }
 

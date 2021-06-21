@@ -38,7 +38,7 @@ namespace Tesis.Views.Pages.TeacherPages
                 NavigationService.Navigate(new RemarksPage(CurrentStudent));
             } else
             {
-                MessageBox.Show("У данног студента нет никаких замечений", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("У данного студента нет никаких замечаний", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

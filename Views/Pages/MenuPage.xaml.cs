@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using Tesis.Views.Pages.SettingPages;
@@ -41,6 +39,11 @@ namespace Tesis.Views.Pages
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void BtnDocs_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new DocumentsPage());
         }
     }
 }

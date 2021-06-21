@@ -18,9 +18,10 @@ namespace Tesis.Model
         public Teacher()
         {
             this.Group = new HashSet<Group>();
+            this.Remark = new HashSet<Remark>();
             this.TeacherSubject = new HashSet<TeacherSubject>();
             this.User = new HashSet<User>();
-            this.Remark = new HashSet<Remark>();
+            this.TeacherDocument = new HashSet<TeacherDocument>();
         }
     
         public int ID { get; set; }
@@ -35,10 +36,12 @@ namespace Tesis.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Group> Group { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Remark> Remark { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TeacherSubject> TeacherSubject { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Remark> Remark { get; set; }
+        public virtual ICollection<TeacherDocument> TeacherDocument { get; set; }
     }
 }

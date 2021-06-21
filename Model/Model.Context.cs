@@ -29,12 +29,14 @@ namespace Tesis.Model
         public virtual DbSet<Gender> Gender { get; set; }
         public virtual DbSet<Group> Group { get; set; }
         public virtual DbSet<Q_A> Q_A { get; set; }
+        public virtual DbSet<Remark> Remark { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<Subject> Subject { get; set; }
         public virtual DbSet<Teacher> Teacher { get; set; }
         public virtual DbSet<TeacherSubject> TeacherSubject { get; set; }
         public virtual DbSet<User> User { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<Remark> Remark { get; set; }
+        public virtual DbSet<Document> Document { get; set; }
+        public virtual DbSet<TeacherDocument> TeacherDocument { get; set; }
     }
 }

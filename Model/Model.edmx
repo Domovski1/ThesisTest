@@ -14,6 +14,14 @@
           <Property Name="Day" Type="date" Nullable="false" />
           <Property Name="IsPresense" Type="bit" />
         </EntityType>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Path" Type="nvarchar" MaxLength="1200" Nullable="false" />
+        </EntityType>
         <EntityType Name="Gender">
           <Key>
             <PropertyRef Name="Code" />
@@ -82,6 +90,14 @@
           <Property Name="GenderCode" Type="nchar" MaxLength="1" Nullable="false" />
           <Property Name="DateOfBirth" Type="date" />
           <Property Name="Photo" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="TeacherDocument">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeacherID" Type="int" Nullable="false" />
+          <Property Name="DocumentID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="TeacherSubject">
           <Key>
@@ -173,6 +189,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TeacherDocument_Document">
+          <End Role="Document" Type="Self.Document" Multiplicity="1" />
+          <End Role="TeacherDocument" Type="Self.TeacherDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Document">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="TeacherDocument">
+              <PropertyRef Name="DocumentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeacherDocument_Teacher">
+          <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+          <End Role="TeacherDocument" Type="Self.TeacherDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TeacherDocument">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TeacherSubject_Subject">
           <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
           <End Role="TeacherSubject" Type="Self.TeacherSubject" Multiplicity="*" />
@@ -223,6 +263,7 @@
         </Association>
         <EntityContainer Name="Хранилище ThesisBaseModelContainer">
           <EntitySet Name="Attendance" EntityType="Self.Attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Document" EntityType="Self.Document" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gender" EntityType="Self.Gender" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Group" EntityType="Self.Group" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Q&amp;A" EntityType="Self.Q&amp;A" Schema="dbo" store:Type="Tables" />
@@ -231,6 +272,7 @@
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Subject" EntityType="Self.Subject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TeacherDocument" EntityType="Self.TeacherDocument" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TeacherSubject" EntityType="Self.TeacherSubject" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Attendance_Student" Association="Self.FK_Attendance_Student">
@@ -257,6 +299,14 @@
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Teacher" EntitySet="Teacher" />
           </AssociationSet>
+          <AssociationSet Name="FK_TeacherDocument_Document" Association="Self.FK_TeacherDocument_Document">
+            <End Role="Document" EntitySet="Document" />
+            <End Role="TeacherDocument" EntitySet="TeacherDocument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeacherDocument_Teacher" Association="Self.FK_TeacherDocument_Teacher">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="TeacherDocument" EntitySet="TeacherDocument" />
+          </AssociationSet>
           <AssociationSet Name="FK_TeacherSubject_Subject" Association="Self.FK_TeacherSubject_Subject">
             <End Role="Subject" EntitySet="Subject" />
             <End Role="TeacherSubject" EntitySet="TeacherSubject" />
@@ -278,206 +328,34 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ThesisBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Attendance">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StudentID" Type="Int32" Nullable="false" />
-          <Property Name="Day" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="IsPresense" Type="Boolean" />
-          <NavigationProperty Name="Student" Relationship="Self.FK_Attendance_Student" FromRole="Attendance" ToRole="Student" />
-        </EntityType>
-        <EntityType Name="Gender">
-          <Key>
-            <PropertyRef Name="Code" />
-          </Key>
-          <Property Name="Code" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Teacher" Relationship="Self.FK_Teacher_Gender" FromRole="Gender" ToRole="Teacher" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Group">
-          <Key>
-            <PropertyRef Name="Code" />
-          </Key>
-          <Property Name="Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CuratorID" Type="Int32" />
-          <NavigationProperty Name="Teacher" Relationship="Self.FK_Group_Teacher" FromRole="Group" ToRole="Teacher" />
-          <NavigationProperty Name="Student" Relationship="Self.FK_Student_Group" FromRole="Group" ToRole="Student" />
-        </EntityType>
-        <EntityType Name="Q_A">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Question" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Answer" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="Student">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="GroupID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Attendance" Relationship="Self.FK_Attendance_Student" FromRole="Student" ToRole="Attendance" />
-          <NavigationProperty Name="Group" Relationship="Self.FK_Student_Group" FromRole="Student" ToRole="Group" />
-          <NavigationProperty Name="Remark" Relationship="ThesisBaseModel.FK_Remark_Student" FromRole="Student" ToRole="Remark" />
-        </EntityType>
-        <EntityType Name="Subject">
-          <Key>
-            <PropertyRef Name="Code" />
-          </Key>
-          <Property Name="Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TeacherSubject" Relationship="Self.FK_TeacherSubject_Subject" FromRole="Subject" ToRole="TeacherSubject" />
-        </EntityType>
-        <EntityType Name="Teacher">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="GenderCode" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Gender" Relationship="Self.FK_Teacher_Gender" FromRole="Teacher" ToRole="Gender" />
-          <NavigationProperty Name="Group" Relationship="Self.FK_Group_Teacher" FromRole="Teacher" ToRole="Group" />
-          <NavigationProperty Name="TeacherSubject" Relationship="Self.FK_TeacherSubject_Teacher" FromRole="Teacher" ToRole="TeacherSubject" />
-          <NavigationProperty Name="User" Relationship="ThesisBaseModel.FK_User_Teacher" FromRole="Teacher" ToRole="User" />
-          <Property Name="Photo" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Remark" Relationship="ThesisBaseModel.FK_Remark_Teacher" FromRole="Teacher" ToRole="Remark" />
-        </EntityType>
-        <EntityType Name="TeacherSubject">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TeacherID" Type="Int32" Nullable="false" />
-          <Property Name="SubjectCode" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Subject" Relationship="Self.FK_TeacherSubject_Subject" FromRole="TeacherSubject" ToRole="Subject" />
-          <NavigationProperty Name="Teacher" Relationship="Self.FK_TeacherSubject_Teacher" FromRole="TeacherSubject" ToRole="Teacher" />
-        </EntityType>
-        <Association Name="FK_Attendance_Student">
-          <End Role="Student" Type="Self.Student" Multiplicity="1" />
-          <End Role="Attendance" Type="Self.Attendance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Student">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Attendance">
-              <PropertyRef Name="StudentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Teacher_Gender">
-          <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
-          <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gender">
-              <PropertyRef Name="Code" />
-            </Principal>
-            <Dependent Role="Teacher">
-              <PropertyRef Name="GenderCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Group_Teacher">
-          <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
-          <End Role="Group" Type="Self.Group" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Teacher">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Group">
-              <PropertyRef Name="CuratorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Student_Group">
-          <End Role="Group" Type="Self.Group" Multiplicity="1" />
-          <End Role="Student" Type="Self.Student" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Group">
-              <PropertyRef Name="Code" />
-            </Principal>
-            <Dependent Role="Student">
-              <PropertyRef Name="GroupID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TeacherSubject_Subject">
-          <End Role="Subject" Type="Self.Subject" Multiplicity="1" />
-          <End Role="TeacherSubject" Type="Self.TeacherSubject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Subject">
-              <PropertyRef Name="Code" />
-            </Principal>
-            <Dependent Role="TeacherSubject">
-              <PropertyRef Name="SubjectCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TeacherSubject_Teacher">
-          <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
-          <End Role="TeacherSubject" Type="Self.TeacherSubject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Teacher">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TeacherSubject">
-              <PropertyRef Name="TeacherID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="ThesisBaseEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Attendance" EntityType="Self.Attendance" />
-          <EntitySet Name="Gender" EntityType="Self.Gender" />
-          <EntitySet Name="Group" EntityType="Self.Group" />
-          <EntitySet Name="Q_A" EntityType="Self.Q_A" />
-          <EntitySet Name="Student" EntityType="Self.Student" />
-          <EntitySet Name="Subject" EntityType="Self.Subject" />
-          <EntitySet Name="Teacher" EntityType="Self.Teacher" />
-          <EntitySet Name="TeacherSubject" EntityType="Self.TeacherSubject" />
-          <AssociationSet Name="FK_Attendance_Student" Association="Self.FK_Attendance_Student">
+          <EntitySet Name="Attendance" EntityType="ThesisBaseModel.Attendance" />
+          <EntitySet Name="Gender" EntityType="ThesisBaseModel.Gender" />
+          <EntitySet Name="Group" EntityType="ThesisBaseModel.Group" />
+          <EntitySet Name="Q_A" EntityType="ThesisBaseModel.Q_A" />
+          <EntitySet Name="Remark" EntityType="ThesisBaseModel.Remark" />
+          <EntitySet Name="Role" EntityType="ThesisBaseModel.Role" />
+          <EntitySet Name="Student" EntityType="ThesisBaseModel.Student" />
+          <EntitySet Name="Subject" EntityType="ThesisBaseModel.Subject" />
+          <EntitySet Name="Teacher" EntityType="ThesisBaseModel.Teacher" />
+          <EntitySet Name="TeacherSubject" EntityType="ThesisBaseModel.TeacherSubject" />
+          <EntitySet Name="User" EntityType="ThesisBaseModel.User" />
+          <AssociationSet Name="FK_Attendance_Student" Association="ThesisBaseModel.FK_Attendance_Student">
             <End Role="Student" EntitySet="Student" />
             <End Role="Attendance" EntitySet="Attendance" />
           </AssociationSet>
-          <AssociationSet Name="FK_Teacher_Gender" Association="Self.FK_Teacher_Gender">
+          <AssociationSet Name="FK_Teacher_Gender" Association="ThesisBaseModel.FK_Teacher_Gender">
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Teacher" EntitySet="Teacher" />
           </AssociationSet>
-          <AssociationSet Name="FK_Group_Teacher" Association="Self.FK_Group_Teacher">
+          <AssociationSet Name="FK_Group_Teacher" Association="ThesisBaseModel.FK_Group_Teacher">
             <End Role="Teacher" EntitySet="Teacher" />
             <End Role="Group" EntitySet="Group" />
           </AssociationSet>
-          <AssociationSet Name="FK_Student_Group" Association="Self.FK_Student_Group">
+          <AssociationSet Name="FK_Student_Group" Association="ThesisBaseModel.FK_Student_Group">
             <End Role="Group" EntitySet="Group" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
-          <AssociationSet Name="FK_TeacherSubject_Subject" Association="Self.FK_TeacherSubject_Subject">
-            <End Role="Subject" EntitySet="Subject" />
-            <End Role="TeacherSubject" EntitySet="TeacherSubject" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TeacherSubject_Teacher" Association="Self.FK_TeacherSubject_Teacher">
-            <End Role="Teacher" EntitySet="Teacher" />
-            <End Role="TeacherSubject" EntitySet="TeacherSubject" />
-          </AssociationSet>
-          <EntitySet Name="User" EntityType="ThesisBaseModel.User" />
-          <AssociationSet Name="FK_User_Teacher" Association="ThesisBaseModel.FK_User_Teacher">
-            <End Role="Teacher" EntitySet="Teacher" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <EntitySet Name="Role" EntityType="ThesisBaseModel.Role" />
-          <AssociationSet Name="FK_User_Role" Association="ThesisBaseModel.FK_User_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <EntitySet Name="Remark" EntityType="ThesisBaseModel.Remark" />
           <AssociationSet Name="FK_Remark_Student" Association="ThesisBaseModel.FK_Remark_Student">
             <End Role="Student" EntitySet="Student" />
             <End Role="Remark" EntitySet="Remark" />
@@ -486,51 +364,69 @@
             <End Role="Teacher" EntitySet="Teacher" />
             <End Role="Remark" EntitySet="Remark" />
           </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="ThesisBaseModel.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeacherSubject_Subject" Association="ThesisBaseModel.FK_TeacherSubject_Subject">
+            <End Role="Subject" EntitySet="Subject" />
+            <End Role="TeacherSubject" EntitySet="TeacherSubject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeacherSubject_Teacher" Association="ThesisBaseModel.FK_TeacherSubject_Teacher">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="TeacherSubject" EntitySet="TeacherSubject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Teacher" Association="ThesisBaseModel.FK_User_Teacher">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <EntitySet Name="Document" EntityType="ThesisBaseModel.Document" />
+          <EntitySet Name="TeacherDocument" EntityType="ThesisBaseModel.TeacherDocument" />
+          <AssociationSet Name="FK_TeacherDocument_Document" Association="ThesisBaseModel.FK_TeacherDocument_Document">
+            <End Role="Document" EntitySet="Document" />
+            <End Role="TeacherDocument" EntitySet="TeacherDocument" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeacherDocument_Teacher" Association="ThesisBaseModel.FK_TeacherDocument_Teacher">
+            <End Role="Teacher" EntitySet="Teacher" />
+            <End Role="TeacherDocument" EntitySet="TeacherDocument" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="User">
+        <EntityType Name="Attendance">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Login" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Teacher" Relationship="ThesisBaseModel.FK_User_Teacher" FromRole="User" ToRole="Teacher" />
-          <Property Name="RoleID" Type="Int32" />
-          <NavigationProperty Name="Role" Relationship="ThesisBaseModel.FK_User_Role" FromRole="User" ToRole="Role" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="Day" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="IsPresense" Type="Boolean" />
+          <NavigationProperty Name="Student" Relationship="ThesisBaseModel.FK_Attendance_Student" FromRole="Attendance" ToRole="Student" />
         </EntityType>
-        <Association Name="FK_User_Teacher">
-          <End Type="ThesisBaseModel.Teacher" Role="Teacher" Multiplicity="1" />
-          <End Type="ThesisBaseModel.User" Role="User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Teacher">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Role">
+        <EntityType Name="Gender">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Teacher" Relationship="ThesisBaseModel.FK_Teacher_Gender" FromRole="Gender" ToRole="Teacher" />
+        </EntityType>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CuratorID" Type="Int32" />
+          <NavigationProperty Name="Teacher" Relationship="ThesisBaseModel.FK_Group_Teacher" FromRole="Group" ToRole="Teacher" />
+          <NavigationProperty Name="Student" Relationship="ThesisBaseModel.FK_Student_Group" FromRole="Group" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Q_A">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="ThesisBaseModel.FK_User_Role" FromRole="Role" ToRole="User" />
+          <Property Name="Question" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Answer" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
         </EntityType>
-        <Association Name="FK_User_Role">
-          <End Type="ThesisBaseModel.Role" Role="Role" Multiplicity="0..1" />
-          <End Type="ThesisBaseModel.User" Role="User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="RoleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Remark">
           <Key>
             <PropertyRef Name="ID" />
@@ -543,6 +439,123 @@
           <NavigationProperty Name="Student" Relationship="ThesisBaseModel.FK_Remark_Student" FromRole="Remark" ToRole="Student" />
           <NavigationProperty Name="Teacher" Relationship="ThesisBaseModel.FK_Remark_Teacher" FromRole="Remark" ToRole="Teacher" />
         </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="User" Relationship="ThesisBaseModel.FK_User_Role" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GroupID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Attendance" Relationship="ThesisBaseModel.FK_Attendance_Student" FromRole="Student" ToRole="Attendance" />
+          <NavigationProperty Name="Group" Relationship="ThesisBaseModel.FK_Student_Group" FromRole="Student" ToRole="Group" />
+          <NavigationProperty Name="Remark" Relationship="ThesisBaseModel.FK_Remark_Student" FromRole="Student" ToRole="Remark" />
+        </EntityType>
+        <EntityType Name="Subject">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TeacherSubject" Relationship="ThesisBaseModel.FK_TeacherSubject_Subject" FromRole="Subject" ToRole="TeacherSubject" />
+        </EntityType>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GenderCode" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="Photo" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Gender" Relationship="ThesisBaseModel.FK_Teacher_Gender" FromRole="Teacher" ToRole="Gender" />
+          <NavigationProperty Name="Group" Relationship="ThesisBaseModel.FK_Group_Teacher" FromRole="Teacher" ToRole="Group" />
+          <NavigationProperty Name="Remark" Relationship="ThesisBaseModel.FK_Remark_Teacher" FromRole="Teacher" ToRole="Remark" />
+          <NavigationProperty Name="TeacherSubject" Relationship="ThesisBaseModel.FK_TeacherSubject_Teacher" FromRole="Teacher" ToRole="TeacherSubject" />
+          <NavigationProperty Name="User" Relationship="ThesisBaseModel.FK_User_Teacher" FromRole="Teacher" ToRole="User" />
+          <NavigationProperty Name="TeacherDocument" Relationship="ThesisBaseModel.FK_TeacherDocument_Teacher" FromRole="Teacher" ToRole="TeacherDocument" />
+        </EntityType>
+        <EntityType Name="TeacherSubject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeacherID" Type="Int32" Nullable="false" />
+          <Property Name="SubjectCode" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Subject" Relationship="ThesisBaseModel.FK_TeacherSubject_Subject" FromRole="TeacherSubject" ToRole="Subject" />
+          <NavigationProperty Name="Teacher" Relationship="ThesisBaseModel.FK_TeacherSubject_Teacher" FromRole="TeacherSubject" ToRole="Teacher" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" />
+          <NavigationProperty Name="Role" Relationship="ThesisBaseModel.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Teacher" Relationship="ThesisBaseModel.FK_User_Teacher" FromRole="User" ToRole="Teacher" />
+        </EntityType>
+        <Association Name="FK_Attendance_Student">
+          <End Type="ThesisBaseModel.Student" Role="Student" Multiplicity="1" />
+          <End Type="ThesisBaseModel.Attendance" Role="Attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Attendance">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Teacher_Gender">
+          <End Type="ThesisBaseModel.Gender" Role="Gender" Multiplicity="1" />
+          <End Type="ThesisBaseModel.Teacher" Role="Teacher" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gender">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="Teacher">
+              <PropertyRef Name="GenderCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_Teacher">
+          <End Type="ThesisBaseModel.Teacher" Role="Teacher" Multiplicity="0..1" />
+          <End Type="ThesisBaseModel.Group" Role="Group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Group">
+              <PropertyRef Name="CuratorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Group">
+          <End Type="ThesisBaseModel.Group" Role="Group" Multiplicity="1" />
+          <End Type="ThesisBaseModel.Student" Role="Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Group">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Remark_Student">
           <End Type="ThesisBaseModel.Student" Role="Student" Multiplicity="1" />
           <End Type="ThesisBaseModel.Remark" Role="Remark" Multiplicity="*" />
@@ -567,7 +580,98 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_User_Role">
+          <End Type="ThesisBaseModel.Role" Role="Role" Multiplicity="0..1" />
+          <End Type="ThesisBaseModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeacherSubject_Subject">
+          <End Type="ThesisBaseModel.Subject" Role="Subject" Multiplicity="1" />
+          <End Type="ThesisBaseModel.TeacherSubject" Role="TeacherSubject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subject">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="TeacherSubject">
+              <PropertyRef Name="SubjectCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeacherSubject_Teacher">
+          <End Type="ThesisBaseModel.Teacher" Role="Teacher" Multiplicity="1" />
+          <End Type="ThesisBaseModel.TeacherSubject" Role="TeacherSubject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TeacherSubject">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Teacher">
+          <End Type="ThesisBaseModel.Teacher" Role="Teacher" Multiplicity="1" />
+          <End Type="ThesisBaseModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="1200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TeacherDocument" Relationship="ThesisBaseModel.FK_TeacherDocument_Document" FromRole="Document" ToRole="TeacherDocument" />
+        </EntityType>
+        <EntityType Name="TeacherDocument">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeacherID" Type="Int32" Nullable="false" />
+          <Property Name="DocumentID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Document" Relationship="ThesisBaseModel.FK_TeacherDocument_Document" FromRole="TeacherDocument" ToRole="Document" />
+          <NavigationProperty Name="Teacher" Relationship="ThesisBaseModel.FK_TeacherDocument_Teacher" FromRole="TeacherDocument" ToRole="Teacher" />
+        </EntityType>
+        <Association Name="FK_TeacherDocument_Document">
+          <End Type="ThesisBaseModel.Document" Role="Document" Multiplicity="1" />
+          <End Type="ThesisBaseModel.TeacherDocument" Role="TeacherDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Document">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="TeacherDocument">
+              <PropertyRef Name="DocumentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeacherDocument_Teacher">
+          <End Type="ThesisBaseModel.Teacher" Role="Teacher" Multiplicity="1" />
+          <End Type="ThesisBaseModel.TeacherDocument" Role="TeacherDocument" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teacher">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TeacherDocument">
+              <PropertyRef Name="TeacherID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -576,10 +680,10 @@
           <EntitySetMapping Name="Attendance">
             <EntityTypeMapping TypeName="ThesisBaseModel.Attendance">
               <MappingFragment StoreEntitySet="Attendance">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-                <ScalarProperty Name="Day" ColumnName="Day" />
                 <ScalarProperty Name="IsPresense" ColumnName="IsPresense" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -594,37 +698,56 @@
           <EntitySetMapping Name="Group">
             <EntityTypeMapping TypeName="ThesisBaseModel.Group">
               <MappingFragment StoreEntitySet="Group">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="CuratorID" ColumnName="CuratorID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Q_A">
             <EntityTypeMapping TypeName="ThesisBaseModel.Q_A">
               <MappingFragment StoreEntitySet="Q&amp;A">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Question" ColumnName="Question" />
                 <ScalarProperty Name="Answer" ColumnName="Answer" />
+                <ScalarProperty Name="Question" ColumnName="Question" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Remark">
+            <EntityTypeMapping TypeName="ThesisBaseModel.Remark">
+              <MappingFragment StoreEntitySet="Remark">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="ThesisBaseModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Student">
             <EntityTypeMapping TypeName="ThesisBaseModel.Student">
               <MappingFragment StoreEntitySet="Student">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Subject">
             <EntityTypeMapping TypeName="ThesisBaseModel.Subject">
               <MappingFragment StoreEntitySet="Subject">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -632,21 +755,21 @@
             <EntityTypeMapping TypeName="ThesisBaseModel.Teacher">
               <MappingFragment StoreEntitySet="Teacher">
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
-                <ScalarProperty Name="GenderCode" ColumnName="GenderCode" />
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="GenderCode" ColumnName="GenderCode" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TeacherSubject">
             <EntityTypeMapping TypeName="ThesisBaseModel.TeacherSubject">
               <MappingFragment StoreEntitySet="TeacherSubject">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
                 <ScalarProperty Name="SubjectCode" ColumnName="SubjectCode" />
+                <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -661,21 +784,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Role">
-            <EntityTypeMapping TypeName="ThesisBaseModel.Role">
-              <MappingFragment StoreEntitySet="Role">
+          <EntitySetMapping Name="Document">
+            <EntityTypeMapping TypeName="ThesisBaseModel.Document">
+              <MappingFragment StoreEntitySet="Document">
+                <ScalarProperty Name="Path" ColumnName="Path" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Remark">
-            <EntityTypeMapping TypeName="ThesisBaseModel.Remark">
-              <MappingFragment StoreEntitySet="Remark">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <EntitySetMapping Name="TeacherDocument">
+            <EntityTypeMapping TypeName="ThesisBaseModel.TeacherDocument">
+              <MappingFragment StoreEntitySet="TeacherDocument">
+                <ScalarProperty Name="DocumentID" ColumnName="DocumentID" />
                 <ScalarProperty Name="TeacherID" ColumnName="TeacherID" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
