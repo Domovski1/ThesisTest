@@ -36,5 +36,12 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+        <StackPanel Grid.Row="2"
+                    VerticalAlignment="Center">
+            <Button Width="200"
+                    Click="BtnNewDocumetn_Click"
+                    Content="Добавить документ"/>
+        </StackPanel>
     </Grid>
 </Page>

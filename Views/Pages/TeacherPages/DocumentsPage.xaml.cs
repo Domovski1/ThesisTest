@@ -46,5 +46,10 @@ namespace Tesis.Views.Pages.TeacherPages
             }
 
         }
+
+        private void BtnNewDocumetn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AddDocumentPage());
+        }
     }
 }
