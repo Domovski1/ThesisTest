@@ -40,7 +40,7 @@ namespace Tesis.Views.Pages
             {
                 if (CurrentUser.RoleID == 1)
                 {
-                    NavigationService.Navigate(new AdminMainPage());
+                    NavigationService.Navigate(new AdminMenuPage());
                 } else
                     NavigationService.Navigate(new MenuPage());
 
