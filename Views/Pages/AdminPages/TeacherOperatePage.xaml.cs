@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,13 +13,20 @@ namespace Tesis.Views.Pages.AdminPages
     public partial class TeacherOperatePage : Page
     {
         public List<Gender> genders {get; set;}
+        public User user { get; set; }
+
         public Teacher teacher { get; set; }
 
         public TeacherOperatePage(Teacher GetTeacher)
         {
             InitializeComponent();
-            
+
             teacher = GetTeacher;
+            user = AppData.db.User.FirstOrDefault(x => x.UserID == GetTeacher.ID);
+            if (user == null)
+            {
+                user = new User();
+            }
             genders = AppData.db.Gender.ToList();
             
             this.DataContext = this;
@@ -27,6 +35,28 @@ namespace Tesis.Views.Pages.AdminPages
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+        }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                if (teacher.ID == 0)
+                {
+                    AppData.db.Teacher.Add(teacher);
+                }
+                if (user.ID == 0)
+                {
+                    AppData.db.User.Add(user);
+                }
+                AppData.db.SaveChanges();
+                MessageBox.Show("Сохранено", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

@@ -31,8 +31,10 @@
         <StackPanel VerticalAlignment="Center"
                     
                     Grid.Row="1">
-            <Button Content="Список преподователей"/>
-            <Button Content="добавить преподавателя"/>
+            <Button Content="Список преподователей"
+                    Click="BtnTeachersList_Click"/>
+            <Button Content="добавить преподавателя"
+                    Click="btnAddTeacher_Click"/>
             <Button Content="Вопросы"
                     Click="BtnQuestions_Click"/>
             <Button Content="Запросы"/>

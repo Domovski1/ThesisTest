@@ -34,5 +34,15 @@ namespace Tesis.Views.Pages.AdminPages
         {
             NavigationService.Navigate(new AnswerPage());
         }
+
+        private void BtnTeachersList_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new AdminMainPage());
+        }
+
+        private void btnAddTeacher_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new TeacherOperatePage(new Model.Teacher()));
+        }
     }
 }

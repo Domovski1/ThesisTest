@@ -47,6 +47,8 @@
                 <TextBlock Text="Фамилия:"/>
                 <TextBlock Text="Имя:"/>
                 <TextBlock Text="Отчество:"/>
+                <TextBlock Text="Логин:"/>
+                <TextBlock Text="Пароль:"/>
                 <TextBlock Text="Пол:"/>
                 <TextBlock Text="Дата рождения:"/>
 
@@ -54,17 +56,28 @@
 
             <StackPanel Margin="0 30 0 0">
                 <TextBox Text="{Binding teacher.FirstName}"
+                         Name="TxbFirstName"
                          Width="200"
                          Height="30"/>
                 <TextBox Text="{Binding teacher.LastName}"
+                         Name="TxbLastName"
                          Width="200"
                          Height="30"/>
                 <TextBox Text="{Binding teacher.Patronymic}"
                          Width="200"
+                         Name="TxbPatronymic"
+                         Height="30"/>
+                <TextBox Width="200"
+                         Text="{Binding user.Login}"
+                         Name="TxbLogin"
+                         Height="30"/>
+                <TextBox Width="200"
+                         Text="{Binding user.Password}"
+                         Name="TxbPassword"
                          Height="30"/>
                 <ComboBox ItemsSource="{Binding genders}"
                           DisplayMemberPath="Title"
-                          SelectedItem="{Binding ElementName=Its, Path=teacher.Gender, TargetNullValue=aaa}"
+                          SelectedItem="{Binding teacher.Gender}"
                           Width="200"
                           Height="30"/>
                 <DatePicker Width="200"
@@ -78,6 +91,7 @@
         <StackPanel Grid.Row="2"
                     VerticalAlignment="Center">
             <Button Width="200"
+                    Click="BtnSave_Click"
                     Content="Сохранить"/>
         </StackPanel>
     </Grid>
