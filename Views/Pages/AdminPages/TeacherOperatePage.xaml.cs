@@ -41,17 +41,24 @@ namespace Tesis.Views.Pages.AdminPages
         {
             try
             {
+                if (!TxbLogin.Text.Contains("@"))
+                {
+                    MessageBox.Show("Пожалуйста, убедитесь что правильно указали почту!", "Упс, чего-то не хватает...", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                else
+                {
 
-                if (teacher.ID == 0)
-                {
-                    AppData.db.Teacher.Add(teacher);
+                    if (teacher.ID == 0)
+                    {
+                        AppData.db.Teacher.Add(teacher);
+                    }
+                    if (user.ID == 0)
+                    {
+                        AppData.db.User.Add(user);
+                    }
+                    AppData.db.SaveChanges();
+                    MessageBox.Show("Сохранено", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                if (user.ID == 0)
-                {
-                    AppData.db.User.Add(user);
-                }
-                AppData.db.SaveChanges();
-                MessageBox.Show("Сохранено", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
