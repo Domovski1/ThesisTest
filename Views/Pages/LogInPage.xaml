@@ -23,8 +23,13 @@
                     Margin="0 5"
                     Click="ShowPassword_Click"/>
             <Button Content="Войти"
+                    Margin="0 0 0 5"
                     Width="200"
                     Click="BtnLogin_Click"/>
+            <Button Content="Забыли данные?"
+                    Name="BtnHelp"
+                    Visibility="Collapsed"
+                    Click="BtnHelp_Click"/>
         </StackPanel>
     </Grid>
 </Page>

@@ -19,6 +19,7 @@ namespace Tesis.Model
         public string Password { get; set; }
         public int UserID { get; set; }
         public Nullable<int> RoleID { get; set; }
+        public Nullable<bool> Status { get; set; }
     
         public virtual Role Role { get; set; }
         public virtual Teacher Teacher { get; set; }

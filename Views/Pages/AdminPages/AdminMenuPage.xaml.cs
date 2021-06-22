@@ -44,5 +44,10 @@ namespace Tesis.Views.Pages.AdminPages
         {
             NavigationService.Navigate(new TeacherOperatePage(new Model.Teacher()));
         }
+
+        private void BtnRequestPage(object sender, RoutedEventArgs e)
+        {
+            //NavigationService.Navigate(new );
+        }
     }
 }

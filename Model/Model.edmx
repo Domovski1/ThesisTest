@@ -116,6 +116,7 @@
           <Property Name="Password" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="RoleID" Type="int" />
+          <Property Name="Status" Type="bit" />
         </EntityType>
         <Association Name="FK_Attendance_Student">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
@@ -507,6 +508,7 @@
           <Property Name="RoleID" Type="Int32" />
           <NavigationProperty Name="Role" Relationship="ThesisBaseModel.FK_User_Role" FromRole="User" ToRole="Role" />
           <NavigationProperty Name="Teacher" Relationship="ThesisBaseModel.FK_User_Teacher" FromRole="User" ToRole="Teacher" />
+          <Property Name="Status" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Attendance_Student">
           <End Type="ThesisBaseModel.Student" Role="Student" Multiplicity="1" />
@@ -776,6 +778,7 @@
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="ThesisBaseModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Password" ColumnName="Password" />

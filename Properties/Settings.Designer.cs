@@ -34,5 +34,16 @@ namespace Tesis.Properties {
                 this["PathToDocs"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime TimeBlock {
+            get {
+                return ((global::System.DateTime)(this["TimeBlock"]));
+            }
+            set {
+                this["TimeBlock"] = value;
+            }
+        }
     }
 }

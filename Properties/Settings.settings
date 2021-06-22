@@ -5,5 +5,8 @@
     <Setting Name="PathToDocs" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Users\62427\Desktop\Отчёт.pdf</Value>
     </Setting>
+    <Setting Name="TimeBlock" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -37,7 +37,8 @@
                     Click="btnAddTeacher_Click"/>
             <Button Content="Вопросы"
                     Click="BtnQuestions_Click"/>
-            <Button Content="Запросы"/>
+            <Button Content="Запросы"
+                    Click="BtnRequestPage"/>
         </StackPanel>
     </Grid>
 </Page>
