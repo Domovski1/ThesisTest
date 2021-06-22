@@ -88,6 +88,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\AdminPages\RequestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\AdminPages\TeacherOperatePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -212,6 +216,9 @@
     </Compile>
     <Compile Include="Views\Pages\AdminPages\AnswerPage.xaml.cs">
       <DependentUpon>AnswerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\AdminPages\RequestPage.xaml.cs">
+      <DependentUpon>RequestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\AdminPages\TeacherOperatePage.xaml.cs">
       <DependentUpon>TeacherOperatePage.xaml</DependentUpon>

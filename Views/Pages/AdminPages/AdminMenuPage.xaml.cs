@@ -47,7 +47,7 @@ namespace Tesis.Views.Pages.AdminPages
 
         private void BtnRequestPage(object sender, RoutedEventArgs e)
         {
-            //NavigationService.Navigate(new );
+            NavigationService.Navigate(new RequestPage());
         }
     }
 }
