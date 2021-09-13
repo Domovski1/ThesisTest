@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Word = Microsoft.Office.Interop.Word;
 using Tesis.Model;
-using Tesis.Properties;
 using System.Diagnostics;
 
 namespace Tesis.Views.Pages.TeacherPages
@@ -20,6 +19,12 @@ namespace Tesis.Views.Pages.TeacherPages
             InitializeComponent();
         }
 
+
+        /// <summary>
+        /// Автозаполнение форм данными
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             CmbGroup.ItemsSource = AppData.db.Group.ToList();
@@ -31,20 +36,29 @@ namespace Tesis.Views.Pages.TeacherPages
             NavigationService.GoBack();
         }
 
-        // Генерация отчёта в pdf
+        /// <summary>
+        /// Генерация отчёта в формате pdf
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Save_Btn_Click(object sender, RoutedEventArgs e)
         {
 
             var CurretGroup = CmbGroup.SelectedItem as Group;
 
             var word = new Word.Application();
+            var document = word.Documents.Open(Environment.CurrentDirectory + @"\" + "Template.docx");
             try
             {
-                var document = word.Documents.Open(Environment.CurrentDirectory + @"\" + "Template.docx");
                 var table = document.Tables[1];
 
+
+                // Создание списка с людьми, которые относятся к выбранной группе
                 var service = AppData.db.Student.Where(x => x.GroupID == CurretGroup.Code).ToList();
                 int i = 2;
+
+
+                // Заполнение документа пропусками
                 foreach (var item in service)
                 {
                     table.Rows.Add();
@@ -56,15 +70,21 @@ namespace Tesis.Views.Pages.TeacherPages
                     i++;
                 }
                 
-                document.SaveAs2(Settings.Default.PathToDocs, Word.WdSaveFormat.wdFormatPDF);
+
+                // Сохранение документа
+                document.SaveAs2($@"C:\Users\{Environment.UserName}\Desktop\{CmbGroup.Text + " C " + to_dp.Text + " до " + Until_dp.Text}.pdf", Word.WdSaveFormat.wdFormatPDF);
                 document.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
                 word.Quit(Word.WdSaveOptions.wdDoNotSaveChanges);
                 MessageBox.Show("Файл сохранен", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                Process.Start(@"C:\Users\62427\Desktop\Отчёт.pdf");
+
+
+                // Автоматическое открытие документа сразу после его создания
+                Process.Start($@"C:\Users\{Environment.UserName}\Desktop\{CmbGroup.Text + " C " + to_dp.Text + " до " + Until_dp.Text}.pdf");
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                document.Close(Word.WdSaveOptions.wdDoNotSaveChanges);
                 word.Quit(Word.WdSaveOptions.wdDoNotSaveChanges);
             }
         }
