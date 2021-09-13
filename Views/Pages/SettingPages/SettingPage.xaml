@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Tesis.Views.Pages.SettingPages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" 
+      d:DesignWidth="800"
       Title="Настройки"
       Loaded="Page_Loaded">
 
@@ -16,23 +17,26 @@
             <RowDefinition Height="0.8*"/>
             <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
+        
         <Button Style="{StaticResource BtnBack}"
                 Click="Back_btn_Click"/>
+        
         <StackPanel Grid.Row="1"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                     Margin="30 0 0 0">
             <TextBlock Text="Путь для сохранения документов:"
                        Width="250"
-                        FontSize="16"/>
+                       FontSize="16"/>
             <TextBox Width="250"
                      FontSize="16"
                      Name="Path_Txb"
-                     Margin="10 0 0 0"/>
+                     Margin="0 0 0 0"/>
         </StackPanel>
 
         <Button Grid.Row="2"
-                Height="24"
+                MinHeight="30"
+                Height="30"
                 Width="200"
                 Click="Save_Btn"
                 Content="Сохранить"/>
