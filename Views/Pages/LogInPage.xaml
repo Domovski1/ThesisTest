@@ -5,17 +5,28 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Tesis.Views.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" 
+      d:DesignWidth="800"
       Title="Авторизация">
+
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </Page.Resources>
 
     <Grid>
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Center">
+            
             <TextBlock Text="Логин:"/>
-            <TextBox x:Name="TxbLogin"/>
-            <TextBlock Text="Пароль:"/>
-            <PasswordBox x:Name="Pbox"/>
+            <TextBox x:Name="TxbLogin" FontSize="15"/>
+            
+            <TextBlock Text="Пароль:" Margin="0 5 0 0"/>
+            <PasswordBox x:Name="Pbox" FontSize="15"/>
+            
             <TextBox x:Name="TxbPassword"
+                     FontSize="15"
                      Text="{Binding ElementName=Pbox, Path=Password, Mode=TwoWay}"
                      Visibility="Collapsed"/>
             <Button Content="Показать пароль"
@@ -24,7 +35,7 @@
                     Click="ShowPassword_Click"/>
             <Button Content="Войти"
                     Margin="0 0 0 5"
-                    Width="200"
+                    Width="250"
                     Click="BtnLogin_Click"/>
             <Button Content="Забыли данные?"
                     Name="BtnHelp"

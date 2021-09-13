@@ -28,9 +28,15 @@ namespace Tesis.Views.Pages
             timer.Start();
         }
 
+
+        /// <summary>
+        /// Проверяет ежесекундно право пользователя на ввод данных
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Timer_Tick(object sender, EventArgs e)
         {
-            // Тут должно быть сравнение времён
+            // Сравнение времени до конца блокировки с текущим временем
             if (Settings.Default.TimeBlock < DateTime.Now)
             {
                 this.IsEnabled = true;
@@ -41,6 +47,12 @@ namespace Tesis.Views.Pages
             }
         }
 
+
+        /// <summary>
+        /// Перевод пароля в режим видимости и обратно с сохранением данных
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ShowPassword_Click(object sender, RoutedEventArgs e)
         {
             if (Pbox.Visibility == Visibility.Visible)
@@ -55,11 +67,21 @@ namespace Tesis.Views.Pages
             }
         }
 
+
+        /// <summary>
+        /// Логика для аутентификации
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
+            // Поиск в базе пользователя, с указанными данными
             var CurrentUser = AppData.db.User.FirstOrDefault(u => u.Login == TxbLogin.Text && u.Password == Pbox.Password);
+
             if (CurrentUser != null)
             {
+                // Проверка авторизации (имеет ли пользователь право войти)
+                // Отказ может быть в случае, если пароль отправлен на восстановление/изменение
                 if (CurrentUser.Status == false)
                 {
                     MessageBox.Show("Данные этого пользователя в данный момент недоступны. Свяжитесь с администратором", "Технические работы", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -79,6 +101,8 @@ namespace Tesis.Views.Pages
             }
 
             Count++;
+
+            // Мониторинг количества неверных попыток ввода
             if (Count >= 5)
             {
                 MessageBox.Show("Количество попыток для входа превышено. Пожалуйста, попробуйте через 5 минут либо обратитесь к администратору", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -87,11 +111,15 @@ namespace Tesis.Views.Pages
                 Settings.Default.Save();
             }
             else if (Count >= 3)
-            {
                 BtnHelp.Visibility = Visibility.Visible;
-            }
         }
 
+
+        /// <summary>
+        /// Направляет пользователя на станицу для связи с администратором
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnHelp_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new NewQuestPage());
