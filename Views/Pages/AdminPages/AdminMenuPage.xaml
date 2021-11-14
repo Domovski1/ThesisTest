@@ -33,7 +33,7 @@
                     Grid.Row="1">
             <Button Content="Список преподователей"
                     Click="BtnTeachersList_Click"/>
-            <Button Content="добавить преподавателя"
+            <Button Content="Добавить преподавателя"
                     Click="btnAddTeacher_Click"/>
             <Button Content="Вопросы"
                     Click="BtnQuestions_Click"/>

@@ -78,9 +78,11 @@
                 <ComboBox ItemsSource="{Binding genders}"
                           DisplayMemberPath="Title"
                           SelectedItem="{Binding teacher.Gender}"
+                          Name="CmbGender"
                           Width="200"
                           Height="30"/>
                 <DatePicker Width="200"
+                            x:Name="BirthDay_dp"
                             SelectedDate="{Binding teacher.DateOfBirth}"
                             Height="30"/>
             </StackPanel>

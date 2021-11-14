@@ -12,10 +12,20 @@ namespace Tesis.Views.Pages.AdminPages
     /// </summary>
     public partial class TeacherOperatePage : Page
     {
-        public List<Gender> genders {get; set;}
-        public User user { get; set; }
 
+        #region vars
+        public List<Gender> genders {get; set;}
+
+        // К пользователям относятся как админы, так и преподы.
+        public User user { get; set; }
+        
+        // В преподавателях(т) хранятся только данные о самой персоне.
+        // (т) = таблица.
         public Teacher teacher { get; set; }
+
+
+        #endregion
+
 
         public TeacherOperatePage(Teacher GetTeacher)
         {
@@ -23,15 +33,16 @@ namespace Tesis.Views.Pages.AdminPages
 
             teacher = GetTeacher;
             user = AppData.db.User.FirstOrDefault(x => x.UserID == GetTeacher.ID);
-            if (user == null)
-            {
-                user = new User();
-            }
-            genders = AppData.db.Gender.ToList();
             
+            if (user == null)
+                user = new User();
+
+            genders = AppData.db.Gender.ToList();
             this.DataContext = this;
         }
 
+
+        // Навигация наазад.
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
@@ -65,5 +76,26 @@ namespace Tesis.Views.Pages.AdminPages
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+
+        #region voids
+
+        /// <summary>
+        /// Очищает все ТекстБоксы со страницы, после успешной операции с данными
+        /// </summary>
+        void DataCleaner()
+        {
+            TxbFirstName.Text = "";
+            TxbLastName.Text = "";
+            TxbPatronymic.Text = "";
+            TxbLogin.Text = "";
+            TxbPatronymic.Text = "";
+            CmbGender.Text = "";
+            BirthDay_dp.Text = "";
+        }
+        
+
+
+        #endregion
     }
 }
